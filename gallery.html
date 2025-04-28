@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="扬州＆南京 - 图片展示">
+    <meta name="keywords" content="扬州,南京,旅游,摄影,景点">
+    <meta name="author" content="Ethan">
+    <title>扬州＆南京 | Ethan的个人网站</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- 导入图标字体 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 预加载字体以优化性能 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- 网站图标 -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%2300c8ff' stroke-width='8'/%3E%3Cpath d='M30,65 C30,40 70,40 70,65' fill='none' stroke='%2300c8ff' stroke-width='8'/%3E%3C/svg%3E" type="image/svg+xml">
+    <style>
+        .gallery-container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-title {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: var(--teal-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .gallery-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary-color);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .gallery-item {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            height: 350px;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-info {
+            transform: translateY(0);
+        }
+        
+        .gallery-info h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.2rem;
+        }
+        
+        .gallery-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+        
+        .lightbox-caption {
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+        }
+        
+        .lightbox-nav button {
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 24px;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .lightbox-nav button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .gallery-item {
+                height: 300px;
+            }
+            
+            .gallery-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="navbar">
+        <div class="logo-container">
+            <a href="index.html" class="logo-link" aria-label="主页">
+                <svg width="40" height="40" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="8" />
+                    <path d="M30,65 C30,40 70,40 70,65" fill="none" stroke="white" stroke-width="8" />
+                </svg>
+                <span class="logo-text">Ethan's Web</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="#" class="nav-link">文章</a>
+                <a href="gallery.html" class="nav-link active">图片</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 图片展示区 -->
+        <div class="gallery-container">
+            <div class="gallery-header">
+                <h1 class="gallery-title">扬州＆南京</h1>
+                <p class="gallery-subtitle">走进千年历史名城，感受江南水乡的韵味与六朝古都的风采。这些照片记录了我在扬州与南京旅行时的美好瞬间，希望能带您领略这两座城市的独特魅力。</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item" data-caption="扬州瘦西湖 - 水上亭榭与长廊相映成趣">
+                    <img src="pic/1.png" alt="扬州瘦西湖风景">
+                    <div class="gallery-info">
+                        <h3>扬州瘦西湖</h3>
+                        <p>水上亭榭与长廊相映成趣，体现江南园林精髓</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-caption="南京夫子庙 - 古老街道与现代生活的交融">
+                    <img src="pic/2.png" alt="南京夫子庙">
+                    <div class="gallery-info">
+                        <h3>南京夫子庙</h3>
+                        <p>古老街道与现代生活的交融，感受六朝文化</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-caption="扬州早茶 - 精致小点与茶文化的完美结合">
+                    <img src="pic/3.png" alt="扬州早茶">
+                    <div class="gallery-info">
+                        <h3>扬州早茶</h3>
+                        <p>精致小点与茶文化的完美结合，品味慢生活</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-caption="南京钟山风景区 - 紫金山的壮丽景色">
+                    <img src="pic/4.png" alt="南京钟山风景区">
+                    <div class="gallery-info">
+                        <h3>南京钟山风景区</h3>
+                        <p>紫金山的壮丽景色，俯瞰六朝古都</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-caption="扬州东关街 - 古街老巷中的市井生活">
+                    <img src="pic/5.png" alt="扬州东关街">
+                    <div class="gallery-info">
+                        <h3>扬州东关街</h3>
+                        <p>古街老巷中的市井生活，扬州人文风情</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-caption="南京秦淮河 - 夜晚的灯火辉煌">
+                    <img src="pic/6.png" alt="南京秦淮河夜景">
+                    <div class="gallery-info">
+                        <h3>南京秦淮河</h3>
+                        <p>夜晚的灯火辉煌，烟雨朦胧中的古今交错</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-caption="扬州个园 - 四季假山展现园林艺术的极致">
+                    <img src="pic/7.png" alt="扬州个园">
+                    <div class="gallery-info">
+                        <h3>扬州个园</h3>
+                        <p>四季假山展现园林艺术的极致，竹影婆娑</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 灯箱效果 -->
+        <div class="lightbox">
+            <div class="lightbox-content">
+                <img src="" alt="">
+                <div class="lightbox-caption"></div>
+            </div>
+            <div class="lightbox-close">&times;</div>
+            <div class="lightbox-nav">
+                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <!-- 右侧社交媒体图标 -->
+        <div class="social-icons">
+            <a href="https://www.xiaohongshu.com/user/profile/64ac2760000000001f006c48" class="social-icon" title="小红书" aria-label="访问小红书" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-book"></i>
+            </a>
+            <a href="https://space.bilibili.com/211246043?spm_id_from=333.1007.0.0" class="social-icon" title="B站" aria-label="访问B站" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-bilibili"></i>
+            </a>
+            <a href="https://api.whatsapp.com/send/?phone=8613356856901&text&type=phone_number&app_absent=0&wame_ctl=1" class="social-icon" title="WhatsApp" aria-label="通过WhatsApp联系" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+
+        <!-- 切换主题按钮 -->
+        <button class="dark-mode-toggle" aria-label="切换深色/浅色模式">
+            <i class="fas fa-moon"></i>
+        </button>
+        
+        <!-- 底部版权信息 -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <span>由 Ethan 设计和开发</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 背景效果 -->
+    <div class="background"></div>
+    
+    <!-- 科技感粒子效果 -->
+    <div class="particles-container">
+        <div class="particle-star"></div>
+        <div class="particle-star"></div>
+        <div class="particle-star"></div>
+        <div class="particle-star"></div>
+        <div class="particle-star"></div>
+    </div>
+    
+    <!-- 流体动画效果 -->
+    <div class="fluid-animation">
+        <svg viewBox="0 0 800 800" preserveAspectRatio="none">
+            <path class="fluid-path"></path>
+            <path class="fluid-path"></path>
+            <path class="fluid-path"></path>
+        </svg>
+    </div>
+    
+    <!-- JavaScript 代码 -->
+    <script src="script.js"></script>
+    <script>
+        // 灯箱效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightbox = document.querySelector('.lightbox');
+            const lightboxImg = lightbox.querySelector('img');
+            const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+            const lightboxClose = lightbox.querySelector('.lightbox-close');
+            const prevBtn = lightbox.querySelector('.prev-btn');
+            const nextBtn = lightbox.querySelector('.next-btn');
+            
+            let currentIndex = 0;
+            
+            // 打开灯箱
+            galleryItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    const imgSrc = item.querySelector('img').src;
+                    const caption = item.getAttribute('data-caption');
+                    
+                    lightboxImg.src = imgSrc;
+                    lightboxCaption.textContent = caption;
+                    currentIndex = index;
+                    
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // 关闭灯箱
+            lightboxClose.addEventListener('click', () => {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // 点击空白处关闭
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // 上一张/下一张
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+                updateLightbox();
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % galleryItems.length;
+                updateLightbox();
+            });
+            
+            // 键盘控制
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                
+                if (e.key === 'Escape') {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                } else if (e.key === 'ArrowLeft') {
+                    currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+                    updateLightbox();
+                } else if (e.key === 'ArrowRight') {
+                    currentIndex = (currentIndex + 1) % galleryItems.length;
+                    updateLightbox();
+                }
+            });
+            
+            function updateLightbox() {
+                const item = galleryItems[currentIndex];
+                const imgSrc = item.querySelector('img').src;
+                const caption = item.getAttribute('data-caption');
+                
+                lightboxImg.src = imgSrc;
+                lightboxCaption.textContent = caption;
+            }
+        });
+    </script>
+</body>
+</html> 

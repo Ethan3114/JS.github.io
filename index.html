@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="个人网站 - 展示我的作品和技能">
+    <meta name="keywords" content="个人网站,作品集,简历,计算机科学,技能展示">
+    <meta name="author" content="Jo">
+    <title>Ethan的个人网站</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- 导入图标字体 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 预加载字体以优化性能 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- 网站图标 -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%2300c8ff' stroke-width='8'/%3E%3Cpath d='M30,65 C30,40 70,40 70,65' fill='none' stroke='%2300c8ff' stroke-width='8'/%3E%3C/svg%3E" type="image/svg+xml">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="navbar">
+        <div class="logo-container">
+            <a href="#" class="logo-link" aria-label="主页">
+                <svg width="40" height="40" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="8" />
+                    <path d="M30,65 C30,40 70,40 70,65" fill="none" stroke="white" stroke-width="8" />
+                </svg>
+                <span class="logo-text">Ethan's Web</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#" class="nav-link active">首页</a>
+                <a href="#" class="nav-link">文章</a>
+                <a href="gallery.html" class="nav-link">图片</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 中间内容区 -->
+        <main class="content">
+            <div class="headline-container">
+                <h1 class="title">
+                    <span class="greeting">Welcome to</span>
+                    <span class="name">Ethan's Web</span>
+                </h1>
+                <div class="subtitle">Start browsing</div>
+                <p class="description">
+                    <span class="job">你好，我是Ethan，一名摄影爱好者，同时也是AI训练师。</span>
+                    <span class="location">我在这里分享我的感悟和生活，欢迎通过右边的whatsapp和我沟通，我们一起探索这个世界。</span>
+                </p>
+                <!-- 按钮 -->
+                <div class="cta-buttons">
+                    <a href="#" class="primary-btn">浏览博客</a>
+                </div>
+            </div>
+            
+            <!-- 预览卡片容器 -->
+            <div class="preview-container">
+                <div class="preview-card">
+                    <div class="card-content">
+                        <video class="card-video" autoplay loop muted>
+                            <source src="video.mp4" type="video/mp4">
+                            你的浏览器不支持视频标签
+                        </video>
+                        <div class="card-light"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 右侧社交媒体图标 -->
+        <div class="social-icons">
+            <a href="https://www.xiaohongshu.com/user/profile/64ac2760000000001f006c48" class="social-icon" title="小红书" aria-label="访问小红书" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-book"></i>
+            </a>
+            <a href="https://space.bilibili.com/211246043?spm_id_from=333.1007.0.0" class="social-icon" title="B站" aria-label="访问B站" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-bilibili"></i>
+            </a>
+            <a href="https://api.whatsapp.com/send/?phone=8613356856901&text&type=phone_number&app_absent=0&wame_ctl=1" class="social-icon" title="WhatsApp" aria-label="通过WhatsApp联系" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+
+        <!-- 切换主题按钮，移至右下角 -->
+        <button class="dark-mode-toggle" aria-label="切换深色/浅色模式">
+            <i class="fas fa-moon"></i>
+        </button>
+        
+        <!-- 底部版权信息 -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <span>由 Ethan 设计和开发</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 背景效果 -->
+    <div class="background"></div>
+    
+    <!-- 科技感粒子效果 -->
+    <div class="particles-container">
+        <div class="particle-star"></div>
+        <div class="particle-star"></div>
+        <div class="particle-star"></div>
+        <div class="particle-star"></div>
+        <div class="particle-star"></div>
+    </div>
+    
+    <!-- 流体动画效果 -->
+    <div class="fluid-animation">
+        <svg viewBox="0 0 800 800" preserveAspectRatio="none">
+            <path class="fluid-path"></path>
+            <path class="fluid-path"></path>
+            <path class="fluid-path"></path>
+        </svg>
+    </div>
+    
+    <!-- 装饰性圆点 -->
+    <div class="decorative-dots">
+        <div class="dot dot-1"></div>
+        <div class="dot dot-2"></div>
+        <div class="dot dot-3"></div>
+        <div class="dot dot-4"></div>
+    </div>
+    
+    <!-- 加载动画 -->
+    <div class="loading-screen">
+        <div class="loading-logo">
+            <svg width="60" height="60" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#00c8ff" stroke-width="8" />
+                <path d="M30,65 C30,40 70,40 70,65" fill="none" stroke="#00c8ff" stroke-width="8" />
+            </svg>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
